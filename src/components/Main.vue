@@ -5,7 +5,7 @@
     </div>
     <div class="top_panel">
       <div class="top_left_panel">
-        <div>{{currentTime}}</div>
+        <div>{{ currentTime }}</div>
       </div>
     </div>
 
@@ -18,41 +18,61 @@
     <div class="runner_panel">
       <div class="runner_panel_left">
         <div class="runner_headline">
-          <div class="runner_name"><input type="text" v-model="currentRunner.name" v-on:change="onChangeRunnerName"></div>
-          <div class="runner_delete"><v-btn color="red" @click="onDeleteRunner">DELETE</v-btn></div>
+          <div class="runner_name">
+            <input type="text" v-model="currentRunner.name" @change="onChangeRunnerName" />
+          </div>
+          <div class="runner_delete">
+            <v-btn color="red" @click="onDeleteRunner">DELETE</v-btn>
+          </div>
         </div>
         <div class="runner_times_container">
           <div class="runner_times" v-for="(runData, index) in currentRunner.data" :key="index">
-            <div class="runner_times_no">
-              [ {{currentRunner.data.length - index}} ]
-            </div>
-            <div class="runner_times_info">
-              <div>{{runData.time}}</div>
-            </div>
+            <div class="runner_times_no">[ {{ currentRunner.data.length - index }} ]</div>
+            <div class="runner_times_info">{{ runData.time }}</div>
             <div class="runner_times_delete">
-              <v-btn color="red" size="x-small" @click="() => onDeleteRunnerTime(index)"><span style="font-size: 10px">DELETE</span></v-btn>
+              <v-btn color="red" size="x-small" @click="() => onDeleteRunnerTime(index)">
+                <span style="font-size: 10px">DELETE</span>
+              </v-btn>
             </div>
           </div>
         </div>
       </div>
-      <div class="runner_panel_right">
-        <div v-for="runner in runnerList" :key="runner.number">
-          <v-btn :class="{'active-runner': currentRunner === runner}" @click="onSelectRunner(runner)"><span>{{runner.name}}</span></v-btn>
-        </div>
-        <div>
-          <v-btn color="red" @click="onAddRunner">ADD</v-btn>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer_buttons">
-      <v-btn class="flex-grow-1" @click="onRequestDevice" v-show="bleStatus === 'disconnected'">BLUETOOTH ON</v-btn>
-      <v-btn class="flex-grow-1" @click="onDisconnect" v-show="bleStatus === 'connected'">BLUETOOTH OFF</v-btn>
-      <v-btn class="flex-grow-1" @click="onClearData">CLEAR</v-btn>
-      <v-btn class="flex-grow-1" @click="onDownloadData">DOWNLOAD</v-btn>
     </div>
   </div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.top_title {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+}
+.runner_times {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.runner_times_no {
+  margin-right: 5px;
+  white-space: nowrap;
+}
+.runner_times_info {
+  flex-grow: 1;
+  white-space: nowrap;
+}
+</style>
+
 
 <script>
 
