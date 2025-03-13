@@ -62,16 +62,26 @@
   align-items: center;
   gap: 10px;
   padding: 5px 0;
+  flex-wrap: nowrap;
 }
 .runner_times_no {
   margin-right: 5px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 .runner_times_info {
   flex-grow: 1;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+.runner_times_delete {
+  display: flex;
+  align-items: center;
 }
 </style>
+
 
 
 <script>
